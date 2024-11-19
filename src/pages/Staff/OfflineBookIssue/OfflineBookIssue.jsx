@@ -8,15 +8,15 @@ import { IoMdClose } from "react-icons/io";
 
 const customStyles = {
   content: {
-    top: "60%",
+    top: "55%",
     left: "50%",
     right: "auto",
     bottom: "auto",
-    marginRight: "-50%",
+    marginRight: "-60%",
     backgroundColor: "#2C4E80",
     transform: "translate(-50%, -50%)",
-    width: "600px",
-    // height:'500px'
+    width: "50%",
+    height:'90%'
   },
 };
 
@@ -77,7 +77,8 @@ const OfflineBookIssue = () => {
       })
       .catch((err) => console.log(err));
   }, [id]);
-  AbortController;
+
+  // AbortController;
 
   return (
     <div className=" h-svh ">
@@ -106,6 +107,7 @@ const OfflineBookIssue = () => {
           </label>
         </div>
       </div>
+
 
       <h1 className="flex items-center justify-between py-4 text-4xl text-center">
         Books

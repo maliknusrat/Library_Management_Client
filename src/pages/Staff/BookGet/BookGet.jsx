@@ -72,7 +72,7 @@ const BookGet = ({id,closeModal}) => {
 
     return (
         <div>
-            <div className="mx-auto my-4 max-w-xl border border-gray-200 rounded-lg shadow-lg p-6 bg-white  hover:shadow-xl  ">
+            <div className="mx-auto my-2 max-w-lg border border-gray-200 rounded-lg shadow-lg p-3 bg-white  hover:shadow-xl  ">
                 <div className="flex flex-col p-6 space-y-1">
                     <h3 className="tracking-tight text-xl font-bold text-gray-900 ">Book Information</h3>
                     <p className="text-sm text-gray-500 ">Please fill in the form to Request a new Book.</p>

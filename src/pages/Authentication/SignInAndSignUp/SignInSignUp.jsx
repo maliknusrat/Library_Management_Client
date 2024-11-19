@@ -6,10 +6,8 @@ import Swal from 'sweetalert2';
 const image_hosting_token = import.meta.env.VITE_Image_Upload_token;
 import { useForm } from "react-hook-form";
 import { updateProfile } from "firebase/auth";
-// import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import { AuthContext } from './../../../Provider/AuthProvider';
 import axios from "axios";
-import { data } from "autoprefixer";
 
 
 const SignInSignUp = () => {
@@ -18,6 +16,7 @@ const SignInSignUp = () => {
     const [registers, setRegister] = useState(false);
     // const axiosPublic = useAxiosPublic()
     const image_hosting_url = `https://api.imgbb.com/1/upload?key=${image_hosting_token}`;
+    
     const [image, setImage] = useState(null);
     const [Name, setName] = useState('');
     const [eMail, setEmail] = useState([]);

@@ -33,6 +33,9 @@ import AdminRoute from './PrivateRoute/AdminRoute';
 import StudentRoute from './PrivateRoute/StudentRoute';
 import StaffRoute from './PrivateRoute/StaffRoute';
 import OfflineIssueBookLists from './pages/Staff/OfflineIssueBookLists/OfflineIssueBookLists';
+import OnlineIssueBook from './pages/Staff/OnlineIssueBook/OnlineIssueBook';
+import BookSummary from './pages/Staff/BookSummary/BookSummary';
+
 
 const router = createBrowserRouter([
   {
@@ -144,6 +147,14 @@ const router = createBrowserRouter([
       {
         path:"getOfflineBooks",
         element:<OfflineIssueBookLists></OfflineIssueBookLists>
+      },
+      {
+        path:"getOnlineBooks",
+        element:<OnlineIssueBook></OnlineIssueBook>
+      },
+      {
+        path:"bookSummary",
+        element:<BookSummary></BookSummary>
       },
     ]
   }

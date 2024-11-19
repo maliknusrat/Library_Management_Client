@@ -22,6 +22,9 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../Provider/AuthProvider';
 import GetUserInfo from '../../../utils/GetUserInfo';
+import SummarizeIcon from '@mui/icons-material/Summarize';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 
 const drawerWidth = 220;
 
@@ -237,7 +240,7 @@ export default function StaffSidebar() {
                   justifyContent: 'center',
                 }}
               >
-                <HomeIcon />
+                <DashboardIcon />
               </ListItemIcon>
               <ListItemText primary="Dashboard" sx={{ opacity: open ? 1 : 0 }} />
             </ListItemButton>
@@ -260,7 +263,27 @@ export default function StaffSidebar() {
               >
                 <HomeIcon />
               </ListItemIcon>
-              <ListItemText primary="Get Offline Books" sx={{ opacity: open ? 1 : 0 }} />
+              <ListItemText primary="Offline Books" sx={{ opacity: open ? 1 : 0 }} />
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding sx={{ display: 'block' }} onClick={() => { navigate("/staff/getOnlineBooks") }}>
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? 'initial' : 'center',
+                px: 2.5,
+              }}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 3 : 'auto',
+                  justifyContent: 'center',
+                }}
+              >
+                <LibraryBooksIcon />
+              </ListItemIcon>
+              <ListItemText primary="Online Books" sx={{ opacity: open ? 1 : 0 }} />
             </ListItemButton>
           </ListItem>
 
@@ -309,6 +332,29 @@ export default function StaffSidebar() {
               <ListItemText primary="Offline Books Issue" sx={{ opacity: open ? 1 : 0 }} />
             </ListItemButton>
           </ListItem>
+
+          <ListItem disablePadding sx={{ display: 'block' }} onClick={() => { navigate("/staff/bookSummary") }}>
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? 'initial' : 'center',
+                px: 2.5,
+              }}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 3 : 'auto',
+                  justifyContent: 'center',
+                }}
+              >
+                <SummarizeIcon />
+              </ListItemIcon>
+              <ListItemText primary="Book Summary" sx={{ opacity: open ? 1 : 0 }} />
+            </ListItemButton>
+          </ListItem>
+
+
 
         </List>
         <Divider />

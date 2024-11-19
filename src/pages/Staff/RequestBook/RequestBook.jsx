@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { GiConfirmed } from "react-icons/gi";
 import { PiTimerDuotone } from "react-icons/pi";
+import { RxCrossCircled } from "react-icons/rx";
 
 const RequestBook = () => {
   const [books, setBooks] = useState([]);
@@ -30,8 +31,8 @@ const RequestBook = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const handleStatus = (data) => {
-    let id = data.bookId;
-    let email = data.email;
+    let id = data.BookId;
+    let email = data.Email;
     axios
       .put(`http://localhost:5000/updateBook/${data.BookId}`, {
         id,
@@ -78,7 +79,7 @@ const RequestBook = () => {
               <th></th>
             </tr>
           </thead>
-         
+
           <tbody className="text-center">
             {currentBooks.map((data, i) => (
               <tr key={i}>
@@ -90,28 +91,35 @@ const RequestBook = () => {
                 <td>{data.StdRes}</td>
                 <td>{data.CurrentRequestTime}</td>
                 <td className="text-red-500">{data.ExpireIssueTime}</td>
-                <td
-                  onClick={() => handleStatus(data)}
-                  className={`btn btn-ghost place-items-center ${
-                    data?.statuss === "Approve" || data?.statuss === "Cancel"
-                      ? "btn-disabled"
-                      : ""
-                  }`}
-                >
-                  {data.statuss === "Approve" && (
-                    <GiConfirmed className="text-xl text-sky-600"></GiConfirmed>
-                  )}
-                  {data.statuss === "Pending" && (
-                    <PiTimerDuotone className="text-xl"></PiTimerDuotone>
-                  )}
-                  {/* {data.statuss} */}
+                <td>
+                  <div
+                    onClick={() => handleStatus(data)}
+                    className={`btn btn-ghost place-items-center ${
+                      data?.statuss === "Approve" || data?.statuss === "Cancel"
+                        ? "btn-disabled"
+                        : ""
+                    }`}
+                  >
+                    <div className="flex items-center justify-between gap-2">
+                      {data.statuss === "Approve" && (
+                        <GiConfirmed className="text-xl text-sky-600"></GiConfirmed>
+                      )}
+                      {data.statuss === "Pending" && (
+                        <PiTimerDuotone className="text-xl"></PiTimerDuotone>
+                      )}
+                      {data.statuss === "Cancel" && (
+                        <RxCrossCircled className="text-2xl text-red-600"></RxCrossCircled>
+                      )}
+                      {/* {data.statuss} */}
+                    </div>
+                  </div>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-      
+
       {/* Pagination */}
       <div className="pagination mt-5">
         {[...Array(Math.ceil(books.length / itemsPerPage)).keys()].map(
