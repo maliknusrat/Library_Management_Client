@@ -7,6 +7,8 @@ import { Image } from "antd";
 import Pagination2 from "./Pagination/Pagination2";
 import Pagination from "./Pagination/Pagination";
 import Swal from "sweetalert2";
+import GetUserInfo from "../../../utils/GetUserInfo";
+
 
 // const customStyles = {
 //   content: {
@@ -47,15 +49,21 @@ const BookSummary = () => {
   const [studentId, setStudentId] = useState("");
   const [selected, setSelected] = useState([]);
   const [checked, setChecked] = useState([]);
+  const [loading, setLoading] = useState(false);
+const [error, setError] = useState(null);
+
+  const dmn = GetUserInfo()
+  const staffId = dmn[0]?.ID
+  
 
   const handleCheckBox = (item) => {
     let newItem = [];
-    const exists = selected.find((selected) => selected.UUID === item.UUID);
+    const exists = selected.find((selected) => selected.ID === item.ID);
     if (!exists) {
       newItem = [...selected, item];
     } else {
       const remaining = selected.filter(
-        (selected) => selected.UUID !== item.UUID
+        (selected) => selected.ID !== item.ID
       );
       newItem = [...remaining];
     }
@@ -64,19 +72,19 @@ const BookSummary = () => {
   };
 
   function findItem(id) {
-    const item = selected.find((item) => item.UUID == id);
+    const item = selected.find((item) => item.ID == id);
     if (item) return true;
     else return false;
   }
 
   const handleCheckBooks = (item) => {
     let newList = [];
-    const exists = checked.find((checked) => checked.UUID === item.UUID);
-    console.log(exists);
+    const exists = checked.find((checked) => checked.ID === item.ID);
+    
     if (!exists) {
       newList = [...checked, item];
     } else {
-      const remaining = checked.filter((checked) => checked.UUID !== item.UUID);
+      const remaining = checked.filter((checked) => checked.ID !== item.ID );
       newList = [...remaining];
     }
     setChecked(newList);
@@ -84,7 +92,7 @@ const BookSummary = () => {
   };
 
   function findList(id) {
-    const item = checked.find((item) => item.UUID == id);
+    const item = checked.find((item) => item.ID == id || item.bookId === id);
     if (item) return true;
     else return false;
   }
@@ -132,13 +140,22 @@ const BookSummary = () => {
   const [summary, setSummary] = useState([]);
 
   const fetchData = async () => {
-    axios
-      .get(`http://localhost:5000/booksummary/${studentId}`)
-      .then((res) => {
+    try {
+      const res = await axios.get(`http://localhost:5000/booksummary/${studentId}`);
+      console.log(res);
+      if (res.data) {
         setSummary(res.data);
-      })
-      .catch((err) => console.log(err));
+        
+      } else {
+        console.log("No data found:", res.data.message);
+      }
+    } catch (err) {
+      console.log("Error fetching data:", err);
+    }
   };
+  
+
+  
 
   useEffect(() => {
     if (studentId) {
@@ -171,7 +188,7 @@ const BookSummary = () => {
   };
 
   const Penalty = 0;
-  const returnDate = "null";
+  const returnDate = "";
 
   var today = new Date();
   var dd = String(today.getDate()).padStart(2, "0");
@@ -184,18 +201,16 @@ const BookSummary = () => {
     let b = 0;
     for (let i = 0; i < selected.length; i++) {
       let object = {
-        id: selected[i].ID,
-        bookName: selected[i].BookName,
-        callNumber: selected[i].CallNumber,
-        barcode: selected[i].Barcode,
-        stdId: studentId,
-        today: today,
+        bookId: selected[i].ID,
+        studentId,
+        staffId,
+        status: "Offline",
+        issueDate: today,
         Penalty,
         returnDate,
       };
-
       axios
-        .post(`http://localhost:5000/offlineRequestBook/${object.id}`, object)
+        .post(`http://localhost:5000/issuebooks/${object.bookId}`, object)
         .then((res) => {
           console.log(res);
           b++;
@@ -221,8 +236,8 @@ const BookSummary = () => {
   const ConfirmReturn = () => {
     let a = 0;
     for (let i = 0; i < checked.length; i++) {
-      const id = checked[i].UUID;
-      const bookId = checked[i].BookId;
+      const id = checked[i].ID;
+      const bookId = checked[i].ID;
       axios
         .put(
           `http://localhost:5000/updateMultipleOfflineIssues/${id}/${bookId}`
@@ -251,8 +266,10 @@ const BookSummary = () => {
     }
   };
 
+  console.log(currentInfo);
+
   return (
-    <div>
+    <div className="font-oswald">
       <div className="flex items-center justify-end my-5">
         <div className="flex ">
           <div className="relative w-max rounded-lg">
@@ -390,16 +407,16 @@ const BookSummary = () => {
                             <input
                               type="checkbox"
                               className="checkbox rounded-none w-4 h-4"
-                              checked={findList(item.UUID)}
+                              checked={findList(item.ID)}
                               onChange={() => handleCheckBooks(item)}
                             />
                           </label>
                         </td>
-                        <td>{item.BookId}</td>
+                        <td>{item.bookId}</td>
                         <td className="w-[200px]">{item.BookName}</td>
-                        <td>{item.IssueDate}</td>
-                        <td className="text-red-700">{item.ExpireDate}</td>
-                        <td>{item.ReturnDate}</td>
+                        <td>{item.issueDate}</td>
+                        <td className="text-red-700">{item.expireDate}</td>
+                        <td>{item.returnDate}</td>
                         <td className="text-green-700">{item.Penalty}</td>
                       </tr>
                     ))}
@@ -471,7 +488,7 @@ const BookSummary = () => {
                             <input
                               type="checkbox"
                               className="checkbox rounded-none w-4 h-4"
-                              checked={findItem(data.UUID)}
+                              checked={findItem(data.ID)}
                               onChange={() => handleCheckBox(data)}
                             />
                           </label>

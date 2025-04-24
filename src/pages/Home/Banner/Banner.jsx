@@ -2,7 +2,7 @@ import img1 from '../../../assets/Just.jpg'
 
 const Banner = () => {
     return (
-        <div className="">
+        <div className="font-oswald">
 
             <section className="flex min-h-[700px]   items-center justify-center border border-black w-full h-[80vh] bg-gradient-to-tr from-black via-black/90 to-black px-8">
                 <div className="flex w-full max-w-6xl gap-10 lg:flex-row flex-col items-center justify-between">

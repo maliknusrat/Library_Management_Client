@@ -19,9 +19,13 @@ const AllBooks = () => {
             .catch(err => console.log(err))
             console.log(book);
     }, [book])
+    const formatDate = (isoString) => {
+  return new Date(isoString).toISOString().split("T")[0]; // "2025-03-06"
+};
+
     return (
         <div className='max-w-6xl pt-[100px]
-        mx-auto'>
+        mx-auto font-oswald'>
              <h1 className="text-4xl mb-10 text-center  font-bold">All Books</h1>
             <div className='grid grid-cols-3  items-center justify-center gap-5'>
             {

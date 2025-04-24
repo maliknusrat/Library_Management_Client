@@ -19,7 +19,7 @@ const BorrowBooks = () => {
     const paginate = pageNumber => setCurrentPage(pageNumber);
 
     return (
-        <div>
+        <div className="font-oswald">
             <Box sx={{ display: 'flex' }}>
                 <div>
                     {/* Fetching Books */}

@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 
 const ReturnBooks = () => {
     return (
-        <div>
+        <div className="font-oswald">
             
             <Box sx={{ display: 'flex' }}>
                 

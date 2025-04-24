@@ -2,6 +2,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import GetUserInfo from "../../../utils/GetUserInfo";
 
 
 const BookGet = ({id,closeModal}) => {
@@ -14,6 +15,12 @@ const BookGet = ({id,closeModal}) => {
     // const [date, setDate] = useState('');
     const [callNumber, setCallNumber] = useState('');
     const [barcode, setBarcode] = useState('');
+    
+    const dmn = GetUserInfo()
+    const staffId = dmn[0]?.ID
+
+
+
 
    
 
@@ -43,13 +50,19 @@ const BookGet = ({id,closeModal}) => {
     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
     var yyyy = today.getUTCFullYear();
 
-    today = yyyy + '/' + mm + '/' + dd;
+    today = yyyy + '-' + mm + '-' + dd;
     
     function handleSubmit(event) {
         event.preventDefault();
 
-        axios.post(`http://localhost:5000/offlineRequestBook/${id}`, {
-            id,bookName,callNumber,barcode, stdId,today,Penalty,returnDate
+        axios.post(`http://localhost:5000/issuebooks/${id}`, {
+            studentId : stdId,
+            staffId,
+            bookId : id,
+            status : "Offline",
+            issueDate: today,
+            returnDate: "",
+            Penalty: 0
         })
             .then(res => {
                 console.log(res);
@@ -71,7 +84,7 @@ const BookGet = ({id,closeModal}) => {
     }
 
     return (
-        <div>
+        <div className="font-oswald">
             <div className="mx-auto my-2 max-w-lg border border-gray-200 rounded-lg shadow-lg p-3 bg-white  hover:shadow-xl  ">
                 <div className="flex flex-col p-6 space-y-1">
                     <h3 className="tracking-tight text-xl font-bold text-gray-900 ">Book Information</h3>

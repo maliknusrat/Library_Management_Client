@@ -63,7 +63,7 @@ const EditOnlineIssueBookList = ({id,closeModal}) => {
 
 
     return (
-        <div>
+        <div className="font-oswald">
       <div className="mx-auto my-4 max-w-xl border border-gray-200 rounded-lg shadow-lg p-6 bg-white  hover:shadow-xl  ">
         <div className="flex flex-col p-6 space-y-1">
           <h3 className="tracking-tight text-xl font-bold text-gray-900 ">

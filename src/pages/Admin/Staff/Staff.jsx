@@ -45,13 +45,13 @@ const Staff = () => {
       // Logic to calculate pagination indexes
       const indexOfLastItem = currentPage * itemsPerPage;
       const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-      const currentBooks = books.slice(indexOfFirstItem, indexOfLastItem);
+      const currentBooks = books?.slice(indexOfFirstItem, indexOfLastItem);
   
       // Change page
       const paginate = pageNumber => setCurrentPage(pageNumber);
 
     return (
-        <div>
+        <div className="font-oswald">
             {/* Modal Start */}
             <div className='flex items-end justify-end'>
                 <Badge onClick={openModal} className='btn btn-circle bg-transparent'
@@ -112,13 +112,13 @@ const Staff = () => {
                         {currentBooks?.map((data, i) => (
                             <tr key={i} className='text-center'>
                                 <td><Image className='flex items-start  justify-start'
-                                    width={50}
+                                    width={30}
                                     
                                     src={data.Image}
                                 /></td>
                                 <td >{data.Name}</td>
                                 <td>{data.Email}</td>
-                                <td>{data.ResgisterType}</td>
+                                <td>{data.RegisterType}</td>
                                 <td>{data.PhoneNumber}</td>
                                 
                                 
@@ -136,7 +136,7 @@ const Staff = () => {
                 ))}
             </div>
         </div>
-
+      
 
         </div>
     );

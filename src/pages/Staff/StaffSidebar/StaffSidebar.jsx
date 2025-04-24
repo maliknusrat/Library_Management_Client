@@ -20,7 +20,6 @@ import HomeIcon from '@mui/icons-material/Home';
 import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Outlet, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../../Provider/AuthProvider';
 import GetUserInfo from '../../../utils/GetUserInfo';
 import SummarizeIcon from '@mui/icons-material/Summarize';
 import DashboardIcon from '@mui/icons-material/Dashboard';
@@ -98,7 +97,6 @@ export default function StaffSidebar() {
   const [open, setOpen] = React.useState(true); // Controls main drawer
   const [openDropdown, setOpenDropdown] = React.useState(false); // Controls dropdown
   const dropDownRef = React.useRef(null);
-  const { logOut } = React.useContext(AuthContext);
   const user = GetUserInfo();
   const navigate = useNavigate();
   const theme = useTheme();
@@ -126,15 +124,9 @@ export default function StaffSidebar() {
         navigate('/staff/dashboard');
         break;
       case 'Log Out':
-        logOut()
-          .then(() => {
-            localStorage.removeItem('type');
-            localStorage.removeItem('email');
-            navigate('/');
-          })
-          .catch(error => {
-            console.log(error);
-          });
+        localStorage.removeItem('type');
+        localStorage.removeItem('email');
+        navigate('/')
         break;
       default:
         // Handle default case if needed

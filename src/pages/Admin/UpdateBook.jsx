@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 
-const UpdateBook = () => {
+const UpdateBook = ({ id, onClose }) => {
     const [bookName, setBookName] = useState('');
     const [price, setPrice] = useState('');
     const [Author, setAuthor] = useState('');
@@ -11,9 +11,15 @@ const UpdateBook = () => {
     const [callNumber, setCallNumber] = useState('');
     const [accessionNumber, setAccessionNumber] = useState('');
     const [barcode, setBarcode] = useState('');
-    const { id } = useParams();
-    console.log(id);
+    const [department, setDepartment] = useState('');
+    const [category, setCategory] = useState('');
+    // const { id } = useParams();
+    // console.log(id);
     console.log(barcode,accessionNumber);
+    const formatDate = (isoString) => {
+        return new Date(isoString).toISOString().split("T")[0]; 
+      };
+      
 
     const navigate = useNavigate();
 
@@ -21,14 +27,16 @@ const UpdateBook = () => {
         axios.get(`http://localhost:5000/books/${id}`)
             .then(res => {
                 const bookDetails = res.data;
-                console.log(bookDetails);
+                console.log("fd",bookDetails);
                 setBookName(bookDetails.bookName);
                 setPrice(bookDetails.price);
                 setAuthor(bookDetails.author);
-                setDate(bookDetails.date);
+                setDate(formatDate(bookDetails.date));
                 setCallNumber(bookDetails.callNumber);
                 setAccessionNumber(bookDetails.accessionNumber);
                 setBarcode(bookDetails.barcode);
+                setCategory(bookDetails.category);
+                setDepartment(bookDetails.department);
             })
             .catch(err => console.log(err));
     }, [id]);
@@ -37,10 +45,11 @@ const UpdateBook = () => {
         event.preventDefault();
         axios.put(`http://localhost:5000/update/${id}`, {
             bookName, price, Author, date,
-            callNumber,accessionNumber,barcode
+            callNumber,accessionNumber,barcode,category,department
         })
             .then(res => {
                 console.log(res.data.success);
+                 
                 if(res.data.success){
                     Swal.fire({
                         title:'Success!',
@@ -56,7 +65,7 @@ const UpdateBook = () => {
     }
 
     return (
-        <div>
+        <div className="font-oswald">
             <div>
                 <div className=" mx-auto my-16 max-w-3xl border  border-gray-200 rounded-lg shadow-lg p-6 bg-white  hover:shadow-xl  ">
                     <div className="flex flex-col p-6 space-y-1">
@@ -95,6 +104,12 @@ const UpdateBook = () => {
                                         </label>
                                         <input className="flex w-full px-3 py-2 text-sm  placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 bg-gray-100  border border-gray-300  rounded-md"  placeholder="Enter the Author Name" value={Author} onChange={e => setAuthor(e.target.value)} />
                                     </div>
+                                    <div className="space-y-2">
+                                        <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-gray-700 " htmlFor="message">
+                                            Department
+                                        </label>
+                                        <input className="flex w-full px-3 py-2 text-sm  placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 bg-gray-100  border border-gray-300  rounded-md"  placeholder="Enter the Department Name" value={department} onChange={e => setDepartment(e.target.value)} />
+                                    </div>
                                 </div>
                                 <div>
                                     <div className="">
@@ -123,6 +138,14 @@ const UpdateBook = () => {
                                             Barcode
                                         </label>
                                         <input className="flex h-10 w-full px-3 py-2 text-sm  file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 bg-gray-100  border border-gray-300  rounded-md" placeholder="Enter The Barcode" value={barcode} onChange={e => setBarcode(e.target.value)}
+                                        />
+                                       
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-gray-700 " htmlFor="message">
+                                            Category
+                                        </label>
+                                        <input className="flex h-10 w-full px-3 py-2 text-sm  file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 bg-gray-100  border border-gray-300  rounded-md" placeholder="Enter The Barcode" value={category} onChange={e => setCategory(e.target.value)}
                                         />
                                        
                                     </div>

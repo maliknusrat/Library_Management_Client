@@ -25,7 +25,7 @@ const AllUsers = () => {
 
 
     return (
-        <div>
+        <div className="font-oswald">
             {/* Fetching Users */}
             <div className=' h-svh '>
             <h1 className="flex items-center justify-between mt-2 mb-5 text-4xl text-center">All Users</h1>
@@ -48,13 +48,13 @@ const AllUsers = () => {
                         {currentBooks?.map((data, i) => (
                             <tr key={i} className='text-center'>
                                 <td><Image className='flex items-start  justify-start'
-                                    width={50}
+                                    width={30}
                                     
                                     src={data.Image}
                                 /></td>
                                 <td >{data.Name}</td>
                                 <td>{data.Email}</td>
-                                <td>{data.ResgisterType}</td>
+                                <td>{data.RegisterType}</td>
                                 <td>{data.StdID}</td>
                                 <td>{data.StdRes}</td>
                                 <td>{data.PhoneNumber}</td>

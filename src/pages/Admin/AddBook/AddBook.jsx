@@ -10,12 +10,14 @@ const AddBook = () => {
     const [bookName, setBookName] = useState('');
     const [book, setBooks] = useState([]);
     const [bookId, setBookId] = useState('');
-    const [price, setPrice] = useState('');
+    const [copies, setCopies] = useState('');
     const [Author, setAuthor] = useState('');
     const [date, setDate] = useState('');
     const [callNumber, setCallNumber] = useState('');
     const [accessionNumber, setAccessionNumber] = useState('');
     const [barcode, setBarcode] = useState('');
+    const [dept, setDept] = useState('')
+    const [category, setCategory] = useState('')
 
 
     const navigate = useNavigate();
@@ -56,8 +58,8 @@ const AddBook = () => {
                 console.log(image);
                 if (res.data.success) {
                     axios.post('http://localhost:5000/books', {
-                        bookId,bookName, price, Author, date, image,
-                        callNumber, accessionNumber, barcode
+                        bookId,bookName,copies, Author, date, image,
+                        callNumber, accessionNumber, barcode,dept,category
                     })
                         .then(res => {
                             console.log(res);
@@ -79,7 +81,7 @@ const AddBook = () => {
     }
 
     return (
-        <div>
+        <div className="font-oswald">
             <div className="mx-auto my-16 max-w-3xl border border-gray-200 rounded-lg shadow-lg p-6 bg-white  hover:shadow-xl  ">
                 <div className="flex flex-col p-6 space-y-1">
                     <h3 className="tracking-tight text-2xl font-bold text-gray-900 ">Add Your Book</h3>
@@ -110,7 +112,7 @@ const AddBook = () => {
                                     <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-gray-700 " htmlFor="email">
                                         Book Copies
                                     </label>
-                                    <input className="flex h-10 w-full px-3 py-2 text-sm  file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 bg-gray-100  border border-gray-300  rounded-md" placeholder="Enter The Number of Books Available" type="text" onChange={e => setPrice(e.target.value)}
+                                    <input className="flex h-10 w-full px-3 py-2 text-sm  file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 bg-gray-100  border border-gray-300  rounded-md" placeholder="Enter The Number of Books Available" type="text" onChange={e => setCopies(e.target.value)}
                                     />
                                 </div>
                                 <div className="space-y-2">
@@ -118,6 +120,13 @@ const AddBook = () => {
                                         Author Name
                                     </label>
                                     <input className="flex h-10 w-full px-3 py-2 text-sm  file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 bg-gray-100  border border-gray-300  rounded-md" placeholder="Enter the Author Name" onChange={e => setAuthor(e.target.value)}
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-gray-700 " htmlFor="message">
+                                       Department
+                                    </label>
+                                    <input className="flex h-10 w-full px-3 py-2 text-sm  file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 bg-gray-100  border border-gray-300  rounded-md" placeholder="Enter the Author Name" onChange={e => setDept(e.target.value)}
                                     />
                                 </div>
                             </div>
@@ -142,6 +151,13 @@ const AddBook = () => {
                                         Accession Number
                                     </label>
                                     <input className="flex h-10 w-full px-3 py-2 text-sm  file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 bg-gray-100  border border-gray-300  rounded-md" placeholder="Enter The Accession Number" onChange={e => setAccessionNumber(e.target.value)}
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-gray-700 " htmlFor="email">
+                                        Book Category
+                                    </label>
+                                    <input className="flex h-10 w-full px-3 py-2 text-sm  file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 bg-gray-100  border border-gray-300  rounded-md" placeholder="Enter The Category" onChange={e => setCategory(e.target.value)}
                                     />
                                 </div>
                                 <div className="space-y-2">

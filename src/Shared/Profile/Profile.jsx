@@ -5,9 +5,9 @@ import { MdEmail } from "react-icons/md";
 
 const Profile = () => {
     const user = GetUserInfo();
-    console.log(user);
+    // console.log(user);
     return (
-        <div className="w-full mx-auto my-10 lg:w-[70%] drop-shadow-lg bg-white">
+        <div className="w-full mx-auto my-10 lg:w-[70%] font-oswald drop-shadow-lg bg-white">
             <form className="p-12">
                 <h1 className="backdrop-blur-sm text-4xl pb-8">{user[0]?.ResgisterType} Profile</h1>
                 <div className="grid grid-cols-2 gap-5 place-content-center">
@@ -27,7 +27,7 @@ const Profile = () => {
                     </div>
                     <label className="block">Register Type</label>
                     <div className="relative">
-                        <input  defaultValue={user[0]?.ResgisterType} className="p-3 block w-full pl-10 drop-shadow-lg outline-none" />
+                        <input  defaultValue={user[0]?.RegisterType} className="p-3 block w-full pl-10 drop-shadow-lg outline-none" />
                         <span className="absolute top-1/4 left-2"><FaUser className="text-xl text-black"></FaUser> </span>
                     </div>
                 </div>

@@ -35,6 +35,9 @@ import StaffRoute from './PrivateRoute/StaffRoute';
 import OfflineIssueBookLists from './pages/Staff/OfflineIssueBookLists/OfflineIssueBookLists';
 import OnlineIssueBook from './pages/Staff/OnlineIssueBook/OnlineIssueBook';
 import BookSummary from './pages/Staff/BookSummary/BookSummary';
+import ForgetPassword from './pages/Authentication/ForgetPassword';
+import Payment from './pages/Student/Payment/Payment';
+import Card from './pages/Student/Card/card';
 
 
 const router = createBrowserRouter([
@@ -56,6 +59,10 @@ const router = createBrowserRouter([
   {
     path:"/logIn",
     element:<SignInSignUp></SignInSignUp>
+  },
+  {
+    path:"/forget",
+    element:<ForgetPassword></ForgetPassword>
   },
  
   {
@@ -121,6 +128,14 @@ const router = createBrowserRouter([
       {
         path:"profile",
         element:<Profile></Profile>
+      },
+      {
+        path:"payment",
+        element:<Payment></Payment>
+      },
+      {
+        path:"payment/success/:id",
+        element:<Card></Card>
       },
     ]
   },

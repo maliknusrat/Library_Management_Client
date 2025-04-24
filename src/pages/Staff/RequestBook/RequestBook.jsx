@@ -18,7 +18,8 @@ const RequestBook = () => {
       .get(
         `http://localhost:5000/issueBooks?page=${currentPage}&limit=${itemsPerPage}`
       )
-      .then((res) => setBooks(res.data))
+      .then((res) => setBooks(res.data),
+    )
       .catch((err) => console.log(err));
   }, [currentPage, itemsPerPage]);
 
@@ -31,10 +32,12 @@ const RequestBook = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const handleStatus = (data) => {
-    let id = data.BookId;
+    let id = data.BookId ;
+    console.log("DI", id);
     let email = data.Email;
+    console.log("data.ID", data.ID);
     axios
-      .put(`http://localhost:5000/updateBook/${data.BookId}`, {
+      .put(`http://localhost:5000/updateBook/${data.ID}/${id}`, {
         id,
         email,
         penalty,
@@ -56,9 +59,10 @@ const RequestBook = () => {
       })
       .catch((err) => console.log(err));
   };
+  
 
   return (
-    <div className=" h-svh ">
+    <div className=" h-svh font-oswald ">
       <h1 className="flex items-center justify-between mt-5 mb-5 text-3xl text-center">
         Requested Books
       </h1>
@@ -67,6 +71,7 @@ const RequestBook = () => {
         <table className="table table-sm table-pin-cols table-pin-rows">
           <thead className="text-center">
             <tr>
+              <th>ID</th>
               <th>Book ID</th>
               <td>Email</td>
               <td>Book Name</td>
@@ -83,6 +88,7 @@ const RequestBook = () => {
           <tbody className="text-center">
             {currentBooks.map((data, i) => (
               <tr key={i}>
+                <th> {data.ID} </th>
                 <th>{data.BookId}</th>
                 <td>{data.Email}</td>
                 <td className="text-blue-800">{data.BookName}</td>

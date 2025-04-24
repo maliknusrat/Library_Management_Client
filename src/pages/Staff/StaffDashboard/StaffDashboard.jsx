@@ -2,7 +2,7 @@
 
 const StaffDashboard = () => {
     return (
-        <div>
+        <div className="font-oswald">
             Dashboard
         </div>
     );

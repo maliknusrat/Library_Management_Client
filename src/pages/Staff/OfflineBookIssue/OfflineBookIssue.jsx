@@ -81,7 +81,7 @@ const OfflineBookIssue = () => {
   // AbortController;
 
   return (
-    <div className=" h-svh ">
+    <div className=" h-svh font-oswald ">
       <div className="flex justify-end">
         <div></div>
         <div>

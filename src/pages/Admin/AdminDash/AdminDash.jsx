@@ -1,9 +1,8 @@
 import { HomeFilled, FileAddFilled, BookFilled, UserOutlined,UsergroupAddOutlined } from '@ant-design/icons';
 import { Breadcrumb, Layout, Menu, Dropdown, theme } from 'antd';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { NavLink, Outlet, } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../../Provider/AuthProvider';
 import GetUserInfo from '../../../utils/GetUserInfo';
 
 const { Header, Content, Sider } = Layout;
@@ -11,29 +10,28 @@ const { Header, Content, Sider } = Layout;
 const items = [
   {
     key: '/',
-    label: <NavLink className='flex items-center gap-10' to="/" ><HomeFilled /> Home </NavLink>
+    label: <NavLink className='font-oswald flex items-center gap-10' to="/" ><HomeFilled /> Home </NavLink>
   },
   {
     key: 'addBook',
-    label: <NavLink className='flex items-center gap-10' to="/admin/addbook" ><FileAddFilled />Add Book </NavLink>
+    label: <NavLink className=' font-oswald flex items-center gap-10' to="/admin/addbook" ><FileAddFilled />Add Book </NavLink>
   },
   {
     key: 'book',
-    label: <NavLink className='flex items-center gap-10' to="/admin/book" ><BookFilled />All Books</NavLink>
+    label: <NavLink className='font-oswald  flex items-center gap-10' to="/admin/book" ><BookFilled />All Books</NavLink>
   },
   {
     key: 'addStaff',
-    label: <NavLink className='flex items-center gap-10' to="/admin/Staff" ><UserOutlined />Staffs</NavLink>
+    label: <NavLink className='font-oswald  flex items-center gap-10' to="/admin/Staff" ><UserOutlined />Staffs</NavLink>
   },
   {
     key: 'allUsers',
-    label: <NavLink className='flex items-center gap-10' to="/admin/allUsers" ><UsergroupAddOutlined />All Users</NavLink>
+    label: <NavLink className='font-oswald  flex items-center gap-10' to="/admin/allUsers" ><UsergroupAddOutlined />All Users</NavLink>
   },
 ];
 
 const AdminDash = () => {
 
-  const { logOut } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const user = GetUserInfo();
@@ -41,15 +39,9 @@ const AdminDash = () => {
 
 
   const logoutHandler = () => {
-    logOut()
-      .then(() => {
         localStorage.removeItem('type');
         localStorage.removeItem('email');
         navigate('/');
-      })
-      .catch(error => {
-        console.log(error);
-      })
   };
 
   const dropItems = [

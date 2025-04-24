@@ -9,7 +9,7 @@ const Pagination2 = ({totalPosts2,postPerPage2,setCurrentpage2, currentPage2,}) 
         pages.push(i);
     }
     return (
-        <div className="flex items-center justify-center gap-5">
+        <div className="flex items-center font-oswald justify-center gap-5">
             {
                 pages.map((page,index) => {
                     return <button className={`btn btn-sm btn-square btn-outline 

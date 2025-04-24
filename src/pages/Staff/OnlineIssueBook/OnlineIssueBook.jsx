@@ -52,15 +52,20 @@ const OnlineIssueBook = () => {
       .catch((err) => console.log(err));
   }, [id]);
 
+  const formatDate = (isoString) => {
+    return new Date(isoString).toISOString().split("T")[0];
+  };
+  
+
   return (
-    <div>
+    <div className="font-oswald">
       <h1 className="flex items-center justify-between py-4 text-4xl text-center">
         Issue Books by Online
       </h1>
       <div className="overflow-x-auto ">
-      <table className="max-w-[60%] shadow-md  border mx-auto border-gray-100  my-6">
+      <table className="max-w-[60%] font-oswald shadow-md  border mx-auto border-gray-100  my-6">
         <thead>
-          <tr className="bg-[#333333] text-sm text-white">
+          <tr className="bg-[#333333] text-sm text-white text-nowrap">
             <th className="py-3 px-6 text-center border-b">Book Id</th>
             <th className="py-3 px-6 text-center border-b">Email</th>
             <th className="py-3 px-6  border-b text-center">Student Id</th>
@@ -76,19 +81,19 @@ const OnlineIssueBook = () => {
           {books?.map((data, i) => (
             <tr
               key={i}
-              className="hover:bg-gray-50 text-sm transition duration-300 "
+              className="hover:bg-gray-50 text-sm text-nowrap text-centerJ transition duration-300 "
             >
               <td className="py-4 px-6 text-start border-b">{data.BookId}</td>
               <td className="py-4 px-6 text-start border-b">{data.Email}</td>
               <td className="py-4 px-6 border-b text-start">{data.StdID}</td>
               <td className="py-4 px-6 border-b text-start">
-                {data.ApproveDate}
+                { (data.ApproveDate) ? formatDate(data.ApproveDate) : "Not Issued"} 
               </td>
               <td className="py-4 px-6 border-b text-red-700 text-start">
-                {data.LastReturnDate}
+                { formatDate(data.LastReturnDate) }
               </td>
               <td className="py-4 px-6 border-b text-start">
-                {data.ReturnDate}
+                {(data.ReturnDate) ? formatDate(data.ReturnDate) : "Not Returned"}
               </td>
 
               <td className="py-4 px-6 border-b text-start">{data.Penalty}</td>

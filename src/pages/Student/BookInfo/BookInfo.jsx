@@ -4,14 +4,17 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Image } from "antd";
 import Swal from "sweetalert2";
 import { AuthContext } from "./../../../Provider/AuthProvider";
+import GetUserInfo from "../../../utils/GetUserInfo";
 
 const BookInfo = () => {
   const navigate = useNavigate();
 
   const { id } = useParams();
-  const { user } = useContext(AuthContext);
-  console.log(user);
-  const email = user?.email;
+  const user = GetUserInfo();
+  console.log("USer mail",user);
+  const email = user[0]?.Email;
+  const studentId = user[0]?.StdID;
+
   const status = "Pending";
   console.log(email);
   const [books, setBooks] = useState([]);
@@ -64,11 +67,14 @@ const BookInfo = () => {
 
   //Post Request BookInfo
   const handleSubmit = (id) => {
+    console.log(id,email,status);
     axios
       .post("http://localhost:5000/requestBook", {
         id,
         email,
         status,
+        studentId
+
       })
       .then((res) => {
         console.log(res);
@@ -84,7 +90,7 @@ const BookInfo = () => {
   };
 
   return (
-    <div className=" h-svh ">
+    <div className=" font-oswald h-svh ">
       <div className="flex justify-end">
         <div></div>
         <div>
@@ -122,7 +128,7 @@ const BookInfo = () => {
               <th>Book Name</th>
               <th>Book Copies</th>
               <th>Author Name</th>
-              {/* <th>Entery Date</th> */}
+              <th>Department</th>
               <th>Call Number</th>
               <th>Accession Number</th>
               <th>Barcode</th>
@@ -143,7 +149,7 @@ const BookInfo = () => {
                 <td>{data.BookName}</td>
                 <td>{data.BookCopies}</td>
                 <td>{data.AuthorName}</td>
-                {/* <td>{data.Date}</td> */}
+                <td>{data.dept}</td>
                 <td>{data.CallNumber}</td>
                 <td>{data.AccessionNumber}</td>
                 <td>{data.Barcode}</td>

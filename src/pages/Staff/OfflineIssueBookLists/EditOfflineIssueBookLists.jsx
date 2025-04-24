@@ -6,22 +6,16 @@ import Swal from "sweetalert2";
 const EditOfflineIssueBookLists = ({id,closeModal}) => {
  const navigate = useNavigate();
   const [books, setBooks] = useState([]);
-
-  const [bookName, setBookname] = useState([]);
-  const [callNumber, setCallNumber] = useState([]);
-  const [barcode, setBarcode] = useState([]);
-  const [expiredate, setExpiredate] = useState([]);
-  const [stdId, setStdId] = useState([]);
-  const [penalty, setPenalty] = useState([]);
-  const [issueDate, setIssuedate] = useState([]);
-  const [returnDate, setReturndate] = useState([]);
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/offlineIssueBooks")
-      .then((res) => setBooks(res.data))
-      .catch((err) => console.log(err));
-  }, [books]);
+  console.log("id", id);
+  const [bookName, setBookname] = useState("");
+  const [callNumber, setCallNumber] = useState("");
+  const [barcode, setBarcode] = useState("");
+  const [expiredate, setExpiredate] = useState("");
+  const [stdId, setStdId] = useState("");
+  const [penalty, setPenalty] = useState("");
+  const [issueDate, setIssuedate] = useState("");
+  const [returnDate, setReturndate] = useState("");
+  const [bookId, setBookId] = useState("");
 
   useEffect(() => {
     axios
@@ -37,6 +31,7 @@ const EditOfflineIssueBookLists = ({id,closeModal}) => {
         setPenalty(bookDetails.penalty);
         setIssuedate(bookDetails.issueDate);
         setReturndate(bookDetails.returnDate);
+        setBookId(bookDetails.bookId);
         console.log(bookDetails);
       })
 
@@ -45,8 +40,8 @@ const EditOfflineIssueBookLists = ({id,closeModal}) => {
 
   function handleSubmit(event) {
     event.preventDefault();
-    axios.put(`http://localhost:5000/updateOfflineIssue/${id}`, {
-       returnDate
+    axios.put(`http://localhost:5000/updateOfflineIssue/${id}/${bookId}`, {
+      issueDate,returnDate
     })
         .then(res => {
             console.log(res.data.success);
@@ -70,7 +65,7 @@ const EditOfflineIssueBookLists = ({id,closeModal}) => {
 }
 
   return (
-    <div>
+    <div className="font-oswald">
       <div className="mx-auto my-4 max-w-xl border border-gray-200 rounded-lg shadow-lg p-6 bg-white  hover:shadow-xl  ">
         <div className="flex flex-col p-6 space-y-1">
           <h3 className="tracking-tight text-xl font-bold text-gray-900 ">
@@ -113,7 +108,7 @@ const EditOfflineIssueBookLists = ({id,closeModal}) => {
                     <input
                       className="flex h-10 w-full px-3 py-2 text-sm  file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 bg-gray-100  border border-gray-300  rounded-md"
                       id="name"
-                      value={id}
+                      value={bookId}
                       name="bookId"
                     />
                   </div>
@@ -142,7 +137,7 @@ const EditOfflineIssueBookLists = ({id,closeModal}) => {
                   <input
                     className="flex h-10 w-full px-3 py-2 text-sm  file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 bg-gray-100  border border-gray-300  rounded-md"
                     placeholder="Enter Your Email"
-                    id="uemail"
+                    id="email"
                     value={barcode}
                     name="email"
                   />

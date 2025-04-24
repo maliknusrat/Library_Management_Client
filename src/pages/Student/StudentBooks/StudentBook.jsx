@@ -24,7 +24,7 @@ const StudentBook = () => {
     return (
         <Box sx={{ display: 'flex' }}>
             <Box >
-            <div className='max-w-6xl pt-[60px]
+            <div className='max-w-6xl pt-[60px] font-oswald
         mx-auto'>
             <h1 className="text-4xl mb-10 text-center  font-bold">All Books</h1>
             <div className='grid grid-cols-3  items-center justify-center gap-6'>

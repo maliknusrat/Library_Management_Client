@@ -3,14 +3,15 @@ import { AuthContext } from "../Provider/AuthProvider";
 import axios from "axios";
 
 
-const GetUserInfo = () => {
+
+const IsPayment = () => {
     const { user } = useContext(AuthContext);
     const [users, getUser] = useState([]);
     console.log(users);
     
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/singleUser/${user}`)
+        axios.get(`http://localhost:5000/ispayment/${users.StdID}`)
             .then(res =>{ getUser(res.data)
                 console.log(res);
             })
@@ -20,4 +21,4 @@ const GetUserInfo = () => {
     return users;
 };
 
-export default GetUserInfo;
+export default IsPayment;
