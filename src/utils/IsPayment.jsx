@@ -1,24 +1,24 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import axios from "axios";
+import GetUserInfo from "./GetUserInfo";
 
 
 
 const IsPayment = () => {
-    const { user } = useContext(AuthContext);
-    const [users, getUser] = useState([]);
-    console.log(users);
+   const user = GetUserInfo();
+    console.log(user);
     
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/ispayment/${users.StdID}`)
+        axios.get(`http://localhost:5000/ispayment/${user.StdID}`)
             .then(res =>{ getUser(res.data)
-                console.log(res);
+                console.log("RSS::",res);
             })
             .catch(err => console.log(err));
     },[user]);
 
-    return users;
+    return user;
 };
 
 export default IsPayment;

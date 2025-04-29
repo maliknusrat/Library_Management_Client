@@ -281,11 +281,11 @@ export default function StudentDash() {
             <ListItem
               disablePadding
               sx={{ display: "block" }}
-              onClick={() => navigate(`/student/borrowbook/${user[0].Email}`)}
+              onClick={() => navigate(`/student/borrowbook/${user[0].StdID}`)}
             >
               <ListItemButton
                 selected={
-                  location.pathname === `/student/borrowbook/${user[0].Email}`
+                  location.pathname === `/student/borrowbook/${user[0].StdID}`
                 }
                 sx={{
                   minHeight: 48,

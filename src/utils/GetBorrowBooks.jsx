@@ -1,21 +1,25 @@
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../Provider/AuthProvider";
+
+import { useEffect, useState } from "react";
 import axios from "axios";
+import GetUserInfo from "./GetUserInfo"; // assuming you have this function
 
-const GetBorrowBooks = () => {
+const useBorrowBooks = () => {
+  const user = GetUserInfo();
+  const [books, setBooks] = useState([]);
+  const StudentId = user[0]?.StdID;
 
-    const { user } = useContext(AuthContext);
-    const [users, getUser] = useState([]);
+  useEffect(() => {
+    if (StudentId) {
+      axios
+        .get(`http://localhost:5000/borrowbooks/${StudentId}`)
+        .then((res) => {
+          setBooks(res.data);
+        })
+        .catch((err) => console.error(err));
+    }
+  }, [StudentId]);
 
-
-    useEffect(() => {
-        axios.get(`http://localhost:5000/borrowbooks/${user?.email}`)
-            .then(res => getUser(res.data))
-            .catch(err => console.log(err));
-    }, [user]);
-
-    return users;
-
+  return books;
 };
 
-export default GetBorrowBooks;
+export default useBorrowBooks;

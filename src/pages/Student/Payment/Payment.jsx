@@ -7,6 +7,7 @@ import img from "../../../assets/JUST_logo_transparent.png"
 const Payment = () => {
   const user = GetUserInfo();
   const payment = IsPayment();
+  console.log(payment);
   console.log("User", user);
   const currentUser = user && user.length > 0 ? user[0] : null;
   const listArray = [
@@ -58,7 +59,7 @@ const Payment = () => {
 
   return (
     <div className="flex items-center justify-center my-10">
-      {payment ? (
+      {payment?.length > 0 ? (
         <div className="flex justify-center items-center min-h-screen">
           <div className="bg-[#D6F0F4] p-5 rounded-lg shadow-lg w-[500px]">
             {/* Header */}

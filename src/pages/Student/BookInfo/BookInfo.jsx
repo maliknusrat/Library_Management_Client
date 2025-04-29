@@ -5,12 +5,14 @@ import { Image } from "antd";
 import Swal from "sweetalert2";
 import { AuthContext } from "./../../../Provider/AuthProvider";
 import GetUserInfo from "../../../utils/GetUserInfo";
+import IsPayment from "../../../utils/IsPayment";
 
 const BookInfo = () => {
   const navigate = useNavigate();
 
   const { id } = useParams();
   const user = GetUserInfo();
+  const payment = IsPayment();
   console.log("USer mail",user);
   const email = user[0]?.Email;
   const studentId = user[0]?.StdID;
@@ -156,7 +158,8 @@ const BookInfo = () => {
                 <td className="flex gap-2 items-center justify-center">
                   <button
                     onClick={() => handleSubmit(data.ID)}
-                    className="btn btn-outline rounded-none btn-warning"
+                    disabled={payment?.length <= 0}
+                    className="btn  btn-outline rounded-none btn-warning"
                   >
                     Request Book
                   </button>

@@ -4,8 +4,14 @@ import Swal from "sweetalert2";
 import { GiConfirmed } from "react-icons/gi";
 import { PiTimerDuotone } from "react-icons/pi";
 import { RxCrossCircled } from "react-icons/rx";
+import GetUserInfo from './../../../utils/GetUserInfo';
 
 const RequestBook = () => {
+  const user = GetUserInfo();
+
+  console.log("user", user);
+  const staffId = user[0]?.ID;
+ 
   const [books, setBooks] = useState([]);
   // const email = localStorage.getItem('email');
   const penalty = 0;
@@ -32,15 +38,21 @@ const RequestBook = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const handleStatus = (data) => {
+    console.log("data", data);
     let id = data.BookId ;
     console.log("DI", id);
     let email = data.Email;
     console.log("data.ID", data.ID);
+    const studentId = data.StdID;
+  
     axios
       .put(`http://localhost:5000/updateBook/${data.ID}/${id}`, {
         id,
         email,
         penalty,
+        studentId,
+        staffId,
+        status: "Online",
       })
       .then((res) => {
         console.log(res.data.success);
