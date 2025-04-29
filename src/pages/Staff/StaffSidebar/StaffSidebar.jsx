@@ -24,6 +24,7 @@ import GetUserInfo from '../../../utils/GetUserInfo';
 import SummarizeIcon from '@mui/icons-material/Summarize';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
+import { MdArticle } from "react-icons/md";
 
 const drawerWidth = 220;
 
@@ -325,6 +326,26 @@ export default function StaffSidebar() {
             </ListItemButton>
           </ListItem>
 
+          <ListItem disablePadding sx={{ display: 'block' }} onClick={() => { navigate("/staff/booklists") }}>
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? 'initial' : 'center',
+                px: 2.5,
+              }}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 3 : 'auto',
+                  justifyContent: 'center',
+                }}
+              >
+                <MdArticle />
+              </ListItemIcon>
+              <ListItemText primary="Book Issues List" sx={{ opacity: open ? 1 : 0 }} />
+            </ListItemButton>
+          </ListItem>
           <ListItem disablePadding sx={{ display: 'block' }} onClick={() => { navigate("/staff/bookSummary") }}>
             <ListItemButton
               sx={{

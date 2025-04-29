@@ -38,6 +38,7 @@ import BookSummary from './pages/Staff/BookSummary/BookSummary';
 import ForgetPassword from './pages/Authentication/ForgetPassword';
 import Payment from './pages/Student/Payment/Payment';
 import Card from './pages/Student/Card/card';
+import BookLists from './pages/Staff/BookLists/BooksLists';
 
 
 const router = createBrowserRouter([
@@ -170,6 +171,10 @@ const router = createBrowserRouter([
       {
         path:"bookSummary",
         element:<BookSummary></BookSummary>
+      },
+      {
+        path:"booklists",
+        element:<BookLists></BookLists>
       },
     ]
   }
